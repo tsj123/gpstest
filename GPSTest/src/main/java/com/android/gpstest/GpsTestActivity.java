@@ -26,6 +26,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.content.res.Configuration;
 import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
@@ -95,6 +96,8 @@ public class GpsTestActivity extends SherlockFragmentActivity
     private static float[] mRotationMatrix = new float[16];
     private static float[] mRemappedMatrix = new float[16];
     private static float[] mValues = new float[3];
+
+    static boolean mIsLargeScreen = false;
 
     interface GpsTestListener extends LocationListener {
         public void gpsStart();
@@ -177,8 +180,14 @@ public class GpsTestActivity extends SherlockFragmentActivity
         // Request use of spinner for showing indeterminate progress, to show
      	// the user something is going on during long-running operations
      	requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-     	
-     	setContentView(R.layout.activity_main);
+
+        // If we have a large screen, show all the fragments in one layout
+        if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            setContentView(R.layout.activity_main_large_screen);
+            mIsLargeScreen = true;
+        } else {
+            setContentView(R.layout.activity_main);
+        }
      	     	
      	initActionBar(savedInstanceState);
      	
@@ -531,7 +540,9 @@ public class GpsTestActivity extends SherlockFragmentActivity
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		// When the given tab is selected, switch to the corresponding page in
 		// the ViewPager.
-		mViewPager.setCurrentItem(tab.getPosition());
+        if (mViewPager != null) {
+		    mViewPager.setCurrentItem(tab.getPosition());
+        }
 	}
 
 	@Override
@@ -605,37 +616,38 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 	private void initActionBar(Bundle savedInstanceState) {
 		// Set up the action bar.
      	final com.actionbarsherlock.app.ActionBar actionBar = getSupportActionBar();
-     	actionBar
-     			.setNavigationMode(com.actionbarsherlock.app.ActionBar.NAVIGATION_MODE_TABS);
+     	actionBar.setNavigationMode(com.actionbarsherlock.app.ActionBar.NAVIGATION_MODE_TABS);
      	actionBar.setTitle(getApplicationContext().getText(R.string.app_name));
-		
-		//  page adapter contains all the fragment registrations
-		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-				
-     	// Set up the ViewPager with the sections adapter.
-     	mViewPager = (ViewPagerMapBevelScroll) findViewById(R.id.pager);
-     	mViewPager.setAdapter(mSectionsPagerAdapter);
-     	mViewPager.setOffscreenPageLimit(2);
-     	
-   		// When swiping between different sections, select the corresponding
-   		// tab. We can also use ActionBar.Tab#select() to do this if we have a
-   		// reference to the Tab.
-   		mViewPager
-   				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-   					@Override
-   					public void onPageSelected(int position) {
-   						actionBar.setSelectedNavigationItem(position);
-   					}
-   				});
-   		// For each of the sections in the app, add a tab to the action bar.
-   		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-   			// Create a tab with text corresponding to the page title defined by
-   			// the adapter. Also specify this Activity object, which implements
-   			// the TabListener interface, as the listener for when this tab is
-   			// selected.
-   			actionBar.addTab(actionBar.newTab()
-   					.setText(mSectionsPagerAdapter.getPageTitle(i))
-   					.setTabListener(this));
-   		}
+
+        // If we don't have a large screen, set up the tabs using the ViewPager
+		if (!mIsLargeScreen) {
+            //  page adapter contains all the fragment registrations
+            mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+            // Set up the ViewPager with the sections adapter.
+            mViewPager = (ViewPagerMapBevelScroll) findViewById(R.id.pager);
+            mViewPager.setAdapter(mSectionsPagerAdapter);
+            mViewPager.setOffscreenPageLimit(2);
+
+            // When swiping between different sections, select the corresponding
+            // tab. We can also use ActionBar.Tab#select() to do this if we have a
+            // reference to the Tab.
+            mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+                        @Override
+                        public void onPageSelected(int position) {
+                            actionBar.setSelectedNavigationItem(position);
+                        }
+                    });
+            // For each of the sections in the app, add a tab to the action bar.
+            for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+                // Create a tab with text corresponding to the page title defined by
+                // the adapter. Also specify this Activity object, which implements
+                // the TabListener interface, as the listener for when this tab is
+                // selected.
+                actionBar.addTab(actionBar.newTab()
+                        .setText(mSectionsPagerAdapter.getPageTitle(i))
+                        .setTabListener(this));
+            }
+        }
 	}
 }
