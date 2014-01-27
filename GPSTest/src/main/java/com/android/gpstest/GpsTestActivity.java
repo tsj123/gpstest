@@ -17,8 +17,6 @@
 
 package com.android.gpstest;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,7 +24,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.content.res.Configuration;
 import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
@@ -53,8 +50,11 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
+import com.android.gpstest.util.GpsTestUtil;
 import com.android.gpstest.view.ViewPagerMapBevelScroll;
 import com.github.espiandev.showcaseview.ShowcaseView;
+
+import java.util.ArrayList;
 
 public class GpsTestActivity extends SherlockFragmentActivity
         implements LocationListener, GpsStatus.Listener, ActionBar.TabListener, SensorEventListener {
@@ -182,7 +182,7 @@ public class GpsTestActivity extends SherlockFragmentActivity
      	requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
         // If we have a large screen, show all the fragments in one layout
-        if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE) {
+        if (GpsTestUtil.isLargeScreen(this)) {
             setContentView(R.layout.activity_main_large_screen);
             mIsLargeScreen = true;
         } else {
@@ -206,7 +206,7 @@ public class GpsTestActivity extends SherlockFragmentActivity
     protected void onResume() {
     	super.onResume();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+        if (GpsTestUtil.isRotationVectorSensorSupported()) {
             // Use the modern rotation vector sensors
             Sensor vectorSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
             mSensorManager.registerListener(this, vectorSensor, 16000); // ~60hz
