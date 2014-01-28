@@ -42,6 +42,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Surface;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
@@ -227,7 +228,16 @@ public class GpsTestActivity extends SherlockFragmentActivity
     		} else {
     			mViewPager.setKeepScreenOn(false);
     		}   		    		
-    	}
+    	} else {
+            View v = findViewById(R.id.large_screen_layout);
+            if (v != null && mIsLargeScreen) {
+                if (settings.getBoolean(getString(R.string.pref_key_keep_screen_on), true)) {
+                    v.setKeepScreenOn(true);
+                } else {
+                    v.setKeepScreenOn(false);
+                }
+            }
+        }
     	
     	checkTimeAndDistance(settings);
     	
