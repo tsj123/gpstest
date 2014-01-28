@@ -227,7 +227,7 @@ public class GpsTestActivity extends SherlockFragmentActivity
     			mViewPager.setKeepScreenOn(true);
     		} else {
     			mViewPager.setKeepScreenOn(false);
-    		}   		    		
+    		}
     	} else {
             View v = findViewById(R.id.large_screen_layout);
             if (v != null && mIsLargeScreen) {
