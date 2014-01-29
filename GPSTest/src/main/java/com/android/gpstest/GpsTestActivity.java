@@ -238,7 +238,7 @@ public class GpsTestActivity extends SherlockFragmentActivity
         super.onPause();
     }
 
-    private void checkTimeAndDistance(SharedPreferences settings){
+    private void checkTimeAndDistance(SharedPreferences settings) {
     	double tempMinTimeDouble = Double.valueOf(settings.getString(getString(R.string.pref_key_gps_min_time), "1"));     	   	
     	long minTimeLong = (long) (tempMinTimeDouble * SECONDS_TO_MILLISECONDS);
      	
@@ -256,7 +256,7 @@ public class GpsTestActivity extends SherlockFragmentActivity
      	}    	
     }
     
-    private void checkTutorial(SharedPreferences settings){
+    private void checkTutorial(SharedPreferences settings) {
     	if (!settings.getBoolean(getString(R.string.pref_key_showed_v2_tutorial), false)) {
     		// If GPS is started, stop to clear the screen (we will start it again at the end of this method)
     	    boolean lastStartState = mStarted;
@@ -377,10 +377,10 @@ public class GpsTestActivity extends SherlockFragmentActivity
 	    	    	gpsStop();    	    	
 	    	    }
 	        	success = sendExtraCommand(getString(R.string.delete_aiding_data_command));
-	        	if(success){
+	        	if (success) {
 	    			Toast.makeText(this,getString(R.string.delete_aiding_data_success),
 	    					Toast.LENGTH_SHORT).show();
-	    		}else{	    			
+	    		} else {
 	    			Toast.makeText(this,getString(R.string.delete_aiding_data_failure),
 	    					Toast.LENGTH_SHORT).show();
 	    		}
@@ -401,20 +401,20 @@ public class GpsTestActivity extends SherlockFragmentActivity
 	            return true;	
 	        case R.id.force_time_injection:
 	            success = sendExtraCommand(getString(R.string.force_time_injection_command));
-	            if(success){
+	            if (success) {
 	    			Toast.makeText(this,getString(R.string.force_time_injection_success),
 	    					Toast.LENGTH_SHORT).show();
-	    		}else{	    			
+	    		} else {
 	    			Toast.makeText(this,getString(R.string.force_time_injection_failure),
 	    					Toast.LENGTH_SHORT).show();
 	    		}
 	            return true;	
 	        case R.id.force_xtra_injection:
 	            success = sendExtraCommand(getString(R.string.force_xtra_injection_command));
-	            if(success){
+	            if (success) {
 	    			Toast.makeText(this,getString(R.string.force_xtra_injection_success),
 	    					Toast.LENGTH_SHORT).show();
-	    		}else{	    			
+	    		} else {
 	    			Toast.makeText(this,getString(R.string.force_xtra_injection_failure),
 	    					Toast.LENGTH_SHORT).show();
 	    		}
