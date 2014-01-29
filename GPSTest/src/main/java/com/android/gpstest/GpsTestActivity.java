@@ -219,25 +219,13 @@ public class GpsTestActivity extends SherlockFragmentActivity
                         SensorManager.SENSOR_DELAY_GAME);
             }
         }
-    	
+
+        /**
+         * Check preferences to see how they should be initialized
+         */
     	SharedPreferences settings = Application.getPrefs();
     	    	    	
-    	if (mViewPager != null) {
-    		if (settings.getBoolean(getString(R.string.pref_key_keep_screen_on), true)) {
-    			mViewPager.setKeepScreenOn(true);
-    		} else {
-    			mViewPager.setKeepScreenOn(false);
-    		}
-    	} else {
-            View v = findViewById(R.id.large_screen_layout);
-            if (v != null && mIsLargeScreen) {
-                if (settings.getBoolean(getString(R.string.pref_key_keep_screen_on), true)) {
-                    v.setKeepScreenOn(true);
-                } else {
-                    v.setKeepScreenOn(false);
-                }
-            }
-        }
+    	checkKeepScreenOn(settings);
     	
     	checkTimeAndDistance(settings);
     	
@@ -301,6 +289,25 @@ public class GpsTestActivity extends SherlockFragmentActivity
     	        }, 500);
     	    }    	    
     	}
+    }
+
+    private void checkKeepScreenOn (SharedPreferences settings) {
+        if (mViewPager != null) {
+            if (settings.getBoolean(getString(R.string.pref_key_keep_screen_on), true)) {
+                mViewPager.setKeepScreenOn(true);
+            } else {
+                mViewPager.setKeepScreenOn(false);
+            }
+        } else {
+            View v = findViewById(R.id.large_screen_layout);
+            if (v != null && mIsLargeScreen) {
+                if (settings.getBoolean(getString(R.string.pref_key_keep_screen_on), true)) {
+                    v.setKeepScreenOn(true);
+                } else {
+                    v.setKeepScreenOn(false);
+                }
+            }
+        }
     }
     
     @Override
