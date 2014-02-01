@@ -103,6 +103,13 @@ public class Preferences extends SherlockPreferenceActivity {
             PreferenceCategory mMapCategory = (PreferenceCategory) findPreference(getString(R.string.pref_key_map_category));
             mMapCategory.removePreference(mCheckBoxTiltMap);
         }
+
+        if (!GpsTestUtil.isLargeScreen(this)) {
+            // This isn't a large screen device, so hide the preference to use tabs on large screen devices
+            CheckBoxPreference mCheckBoxUseTabsLargeScreen = (CheckBoxPreference) findPreference(getString(R.string.pref_key_use_tabs_on_large_screen));
+            PreferenceCategory mDisplayCategory = (PreferenceCategory) findPreference(getString(R.string.pref_key_display_category));
+            mDisplayCategory.removePreference(mCheckBoxUseTabsLargeScreen);
+        }
 	}
 	
 	/**

@@ -54,6 +54,11 @@
             android:title="@string/pref_keep_screen_on_title"
             android:summary="@string/pref_keep_screen_on_summary"
             android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="@string/pref_key_use_tabs_on_large_screen"
+            android:title="@string/pref_use_tabs_on_large_screen_title"
+            android:summary="@string/pref_use_tabs_on_large_screen_summary"
+            android:defaultValue="false" />
     </PreferenceCategory>
     
     <PreferenceCategory

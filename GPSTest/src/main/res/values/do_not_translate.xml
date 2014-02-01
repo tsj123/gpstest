@@ -32,6 +32,7 @@
     <string name="pref_key_gps_min_distance">gps_min_distance</string>
     
     <string name="pref_key_display_category">display_category</string>
+    <string name="pref_key_use_tabs_on_large_screen">use_tabs_on_large_screen</string>
     <string name="pref_key_keep_screen_on">keep_screen_on</string>
     
     <string name="pref_key_about_category">about_category</string>
