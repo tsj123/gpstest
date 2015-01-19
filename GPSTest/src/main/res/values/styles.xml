@@ -15,8 +15,8 @@
 -->
 
 <resources>
-    <style name="Theme.Settings" parent="@style/GpsSwitchTheme">
-        <item name="android:windowNoTitle">true</item>
+    <style name="Theme.Settings" parent="@Theme.GpsTest">
+        <item name="android:windowNoTitle">false</item>
         <item name="android:windowActionBar">false</item>
 
         <item name="toolbarStyle">@style/Widget.Toolbar</item>

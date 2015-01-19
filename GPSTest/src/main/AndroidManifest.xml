@@ -45,7 +45,7 @@
         <uses-library android:name="com.google.android.maps"/>
 
         <activity android:name=".GpsTestActivity"
-                  android:theme="@style/GpsSwitchTheme"
+                  android:theme="@style/Theme.GpsTest"
                   android:configChanges="keyboard|keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

@@ -69,7 +69,7 @@ tasks.whenTaskAdded { theTask ->
 dependencies {
     compile project(':ShowcaseViewLibrary')
     compile 'com.google.android.gms:play-services:3.2.65'
-    compile 'com.android.support:appcompat-v7:21.0.2'
+    compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'org.jraf:android-switch-backport:1.4.0'
     compile 'com.google.maps.android:android-maps-utils:0.2.1'
 }
