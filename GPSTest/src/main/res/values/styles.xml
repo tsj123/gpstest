@@ -48,8 +48,13 @@
     </style>
 
     <!-- Navigation Drawer -->
-    <style name="NavDrawerListItem" parent="Widget.AppCompat.ListView.Menu">
-        <item name="android:background">@drawable/navdrawer_item_selectable</item>
+    <style name="NavDrawerListItem.Light" parent="Widget.AppCompat.ListView.Menu">
+        <item name="android:background">@drawable/navdrawer_item_selectable_light</item>
+        <item name="android:shape">oval</item>
+    </style>
+
+    <style name="NavDrawerListItem.Dark" parent="Widget.AppCompat.ListView.Menu">
+        <item name="android:background">@drawable/navdrawer_item_selectable_dark</item>
         <item name="android:shape">oval</item>
     </style>
 

@@ -33,6 +33,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -435,7 +436,19 @@ public class NavigationDrawerFragment extends Fragment {
         } else {
             layoutToInflate = R.layout.navdrawer_item;
         }
-        View view = getActivity().getLayoutInflater().inflate(layoutToInflate, container, false);
+        View view;
+        if (Application.getPrefs().getBoolean(getString(R.string.pref_key_dark_theme), false)
+                && layoutToInflate == R.layout.navdrawer_item) {
+            // Dark theme
+            //view = View.inflate(new ContextThemeWrapper(getActivity(), R.style.NavDrawerListItem_Dark), R.layout.navdrawer_item, container);
+            Context context = new ContextThemeWrapper(getActivity(), R.style.NavDrawerListItem_Dark);
+            LayoutInflater layoutInflater = getActivity().getLayoutInflater().cloneInContext(context);
+            view = layoutInflater.inflate(layoutToInflate, container, false);
+        } else {
+            // Light theme
+            view = getActivity().getLayoutInflater().inflate(layoutToInflate, container, false);
+        }
+
 
         if (isSeparator(itemId)) {
             // we are done
